@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>ร้านขายเสื้อผ้า Crypto (BNB Testnet)</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 1rem;
+    }
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .product {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 1rem;
+      width: 250px;
+    }
+    .product img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .product h2 {
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+    }
+    .product p {
+      margin: 0.3rem 0;
+    }
+    .product button {
+      margin-top: 0.8rem;
+      padding: 10px 20px;
+      background-color: #f0b90b;
+      color: #111;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .product button:hover {
+      background-color: #e5a800;
+    }
+  </style>
+</head>
+<body>
+  <h1>🛍️ ร้านขายเสื้อผ้า Crypto (BNB Testnet)</h1>
+
+  <div class="product-grid">
+
+    <div class="product">
+      <img src="https://i.imgur.com/O6p8Y0P.jpeg" alt="เสื้อยืดลายแมว" />
+      <h2>เสื้อยืดลายแมว</h2>
+      <p>ราคา: <strong>0.01 BNB</strong></p>
+      <button onclick="buyProduct('0.01')">ซื้อ</button>
+    </div>
+
+    <div class="product">
+      <img src="https://i.imgur.com/w1X74nD.jpeg" alt="เสื้อแขนยาวเท่ ๆ" />
+      <h2>เสื้อแขนยาวเท่ ๆ</h2>
+      <p>ราคา: <strong>0.02 BNB</strong></p>
+      <button onclick="buyProduct('0.02')">ซื้อ</button>
+    </div>
+
+    <div class="product">
+      <img src="https://i.imgur.com/7bA3QoS.jpeg" alt="เสื้อฮู้ดสีแดง" />
+      <h2>เสื้อฮู้ดสีแดง</h2>
+      <p>ราคา: <strong>0.015 BNB</strong></p>
+      <button onclick="buyProduct('0.015')">ซื้อ</button>
+    </div>
+
+    <div class="product">
+      <img src="https://i.imgur.com/BG6ZvNg.jpeg" alt="เสื้อโปโลสีฟ้า" />
+      <h2>เสื้อโปโลสีฟ้า</h2>
+      <p>ราคา: <strong>0.012 BNB</strong></p>
+      <button onclick="buyProduct('0.012')">ซื้อ</button>
+    </div>
+
+    <div class="product">
+      <img src="https://i.imgur.com/gAStzpi.jpeg" alt="เสื้อเชิ้ตลายสก็อต" />
+      <h2>เสื้อเชิ้ตลายสก็อต</h2>
+      <p>ราคา: <strong>0.018 BNB</strong></p>
+      <button onclick="buyProduct('0.018')">ซื้อ</button>
+    </div>
+
+    <div class="product">
+      <img src="https://i.imgur.com/r7A0fRl.jpeg" alt="เสื้อยืดลายกราฟิก" />
+      <h2>เสื้อยืดลายกราฟิก</h2>
+      <p>ราคา: <strong>0.02 BNB</strong></p>
+      <button onclick="buyProduct('0.02')">ซื้อ</button>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <script>
+    const shopAddress = "0x0E927Db5D20BF85A31c71398bb5e82491B2aa730";
+
+    async function switchToBscTestnet() {
+      try {
+        await window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [{
+            chainId: '0x61',
+            chainName: 'BNB Smart Chain Testnet',
+            nativeCurrency: {
+              name: 'BNB',
+              symbol: 'BNB',
+              decimals: 18
+            },
+            rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545'],
+            blockExplorerUrls: ['https://testnet.bscscan.com']
+          }]
+        });
+      } catch (error) {
+        console.error("สลับ Chain ไม่สำเร็จ:", error);
+      }
+    }
+
+    async function buyProduct(priceInBNB) {
+      if (!window.ethereum) {
+        alert("กรุณาติดตั้ง MetaMask ก่อน");
+        return;
+      }
+
+      await switchToBscTestnet();
+
+      try {
+        await ethereum.request({ method: 'eth_requestAccounts' });
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+
+        const tx = await signer.sendTransaction({
+          to: shopAddress,
+          value: ethers.utils.parseEther(priceInBNB)
+        });
+
+        await tx.wait();
+        alert("🟢 ชำระเงินเรียบร้อยผ่าน BNB Testnet!");
+      } catch (err) {
+        console.error(err);
+        alert("❌ การชำระเงินล้มเหลว หรือถูกยกเลิก");
+      }
+    }
+  </script>
+</body>
+</html>

@@ -6,41 +6,59 @@
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background: #f9f9f9;
       margin: 0;
       padding: 2rem;
       text-align: center;
+      background: linear-gradient(135deg, #1b0033, #3b0a63, #4e0d8a, #32004f);
+      background-size: 400% 400%;
+      animation: galaxyBg 20s ease infinite;
+      color: white;
     }
+
+    @keyframes galaxyBg {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     h1 {
-      color: #333;
+      color: #f0b90b;
       margin-bottom: 1rem;
     }
+
     .product-grid {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 2rem;
     }
+
     .product {
-      background: white;
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
       padding: 1rem;
       width: 250px;
+      backdrop-filter: blur(6px);
+      color: white;
     }
+
     .product img {
       width: 100%;
       height: auto;
       border-radius: 8px;
       object-fit: cover;
     }
+
     .product h2 {
       font-size: 1.2rem;
       margin: 0.5rem 0;
     }
+
     .product p {
       margin: 0.3rem 0;
     }
+
     .product button {
       margin-top: 0.8rem;
       padding: 10px 20px;
@@ -50,16 +68,27 @@
       border-radius: 6px;
       cursor: pointer;
     }
+
     .product button:hover {
       background-color: #e5a800;
+    }
+
+    /* โลโก้ */
+    .logo {
+      width: 230px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
     }
   </style>
 </head>
 <body>
+
+  <!-- โลโก้ร้าน: เปลี่ยน src เป็นภาพของคุณ -->
+  <img src="images/logo5.png" alt="โลโก้ร้าน" class="logo" />
+
   <h1>🛍️ ร้านขายเสื้อผ้า Crypto (BNB Testnet)</h1>
 
   <div class="product-grid">
-
     <div class="product">
       <img src="images/cat1.jpg" alt="เสื้อยืดลายแมว" />
       <h2>เสื้อยืดลายแมว</h2>
@@ -101,7 +130,6 @@
       <p>ราคา: <strong>0.02 BNB</strong></p>
       <button onclick="buyProduct('0.02')">ซื้อ</button>
     </div>
-
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
